@@ -1,9 +1,9 @@
 <grammar version="1.0" xml:lang="fr-FR" mode="voice" root="ruleMeteo" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
   <rule id="ruleMeteo" scope="public">
-    <example>jarvis allume la lumiere du salon</example>
+    <example>Sarah allume la lumiere du salon</example>
     <tag>out.action=new Object(); </tag>
     
-    <item>Jarvis</item>
+    <item>Sarah</item>
     
     <one-of>
       <item>allume<tag>out.action.action_domo="1";out.action.type_requete_linknx="ecriture"</tag></item>

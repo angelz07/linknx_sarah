@@ -2,7 +2,107 @@
 
   <div class="row-fluid">
     <div class="span11">
-      <p>Le plugin <b>Linknx</b> permet de connecter S.A.R.A.H. avec linknx</p>
+      	<p align="center"><strong><em><u>Plugin Linknx pour Sarah</u></em></strong></p>
+		<p>Le plugin Linknx permet  de connecter S.A.R.A.H. avec linknx.<br />
+			<strong>1. Configuration</strong><br />
+			Juste 2 paramètres à  mettre dans l'interface, l'adresse du serveur linknx et son port (1028 par défaut)</p>
+		<p><strong>2. Commande.</strong><br />
+			Pour la partie envoie de  commande y à pas trop de souci.<br />
+			Juste mettre à jour le  linknx.xml avec VOS id linknx (out.action.objet_linknx)<br />
+	<em>&lt;item&gt;le lustre de la  cuisine&lt;tag&gt;out.action.objet_linknx  =&quot;Lumiere_Cuisine_Lustre_Table_Cmd&quot;;out.action.type_objet =&quot;on_off&quot;&lt;/tag&gt;&lt;/item&gt;</em><br />
+			Et ça doit marcher</p>
+		<p><strong>3. statuts</strong><br />
+			Pour le statu vu qu'il  n'y a pas de normalisation dans les noms des id linknx pas évident de faire  simple :)<br />
+			(Note il faudrait peut-être  penser à mettre en place une normalisation dans linknx.xml :-))<br />
+			Donc pour le statu je  suis parti sur la demande de statut pièce par pièce et home statu<br />
+			Il faut malheureusement  dans l'état actuel du plugin aller modifier dans le linknx.js des choses</p>
+		<p>Par exemple pour le salon  :<br />
+			Dans le XML j'ai mis<br />
+	<em>&lt;item&gt;donne-moi le  status&lt;tag&gt;out.action.type_requete_linknx=&quot;lecture&quot;;out.action.objet_linknx  =&quot;status&quot;;&lt;/tag&gt;&lt;/item&gt;</em></p>
+		<p><em>&lt;item&gt;du salon&lt;tag&gt;out.action.piece  =&quot;salon&quot;&lt;/tag&gt;&lt;/item&gt;</em></p>
+		<p>Il faut changer <em>out.action.piece  =&quot;salon&quot;</em> pour  correspondre à votre pièce<br />
+			Puis dans le js (là c'est  plus chaud :-))<br />
+			Dans la fonction : <em>var read_linknx  = function(data, config, callback)</em><br />
+			Rajouter ou modifier le  switch case </p>
+		<p><em>case 'salon':</em><br />
+			<em>data_xml = '&lt;read&gt;&lt;objects&gt;&lt;object  id=&quot;chauffage_salon_mode_choix&quot;/&gt;&lt;object id=&quot;chauffage_salon_temp_ambiante&quot;/&gt;&lt;object  id=&quot;volet_baie_vitree_status&quot;/&gt;&lt;object  id=&quot;Lumiere_Salon_Spots_Valeur&quot;/&gt;&lt;/objects&gt;&lt;/read&gt;\04';</em><br />
+			<em>break;</em></p>
+		<p>En y modifiant les id  linknx dont vous voulez le statut<br />
+			Puis dans la fonction<br />
+	<em>var reponse_vocal = function(data_string, piece,  config, callback)</em><br />
+			Modifier ou rajouter :<br />
+	<em>/*******************/</em><br />
+	<em>/* Salon */</em><br />
+	<em>/*******************/</em><br />
+	<em>case 'salon':</em><br />
+	<em>// Chauffage</em><br />
+	<em>var valeur_chauffage_salon =  data_string.match('id=&quot;chauffage_salon_mode_choix&quot; value=&quot;([A-Za-z0-9_.]*)&quot;');</em><br />
+	<em>var convert_val_chauffage_salon =  convert_chauffage(valeur_chauffage_salon);</em><br />
+	<em>console.log(&quot;Valeur Temperature Salon = &quot; +  convert_val_chauffage_salon)</em></p>
+		<p><em>// Température salon</em><br />
+			<em>var valeur_temperature_salon =  data_string.match('id=&quot;chauffage_salon_temp_ambiante&quot;  value=&quot;([A-Za-z0-9_.]*)&quot;');</em><br />
+			<em>var convert_val_temperature_salon =  convert_temperature_ambiante(valeur_temperature_salon);</em><br />
+			<em>console.log(&quot;Valeur Temperature Salon = &quot; +  convert_val_temperature_salon)</em></p>
+		<p><em>// Fenetre Baie vitrée</em><br />
+			<em>var valeur_volet_baie_vitrée_salon =  data_string.match('id=&quot;volet_baie_vitree_status&quot;  value=&quot;([A-Za-z0-9_.]*)&quot;');</em><br />
+			<em>var convert_val_baie_vitrée_salon =  convert_volet(valeur_volet_baie_vitrée_salon);</em><br />
+			<em>console.log(&quot;Valeur volet Baie Vitrée Salon =  &quot; + convert_val_baie_vitrée_salon)</em></p>
+		<p><em>// spote salon</em><br />
+			<em>var valeur_spots_salon =  data_string.match('id=&quot;Lumiere_Salon_Spots_Valeur&quot;  value=&quot;([A-Za-z0-9_.]*)&quot;');</em><br />
+			<em>var convert_val_spots_salon =  convert_on_off_dimer(valeur_spots_salon);</em><br />
+			<em>console.log('Valeur Spots Salon = ' + convert_val_spots_salon);</em></p>
+		<p><em>retour_vocal = &quot;Le chauffage du salon est sur le  mode &quot; + convert_val_chauffage_salon + &quot;, la température du salon est  de &quot; + convert_val_temperature_salon + &quot;, le volet de la baie vitrée  est &quot; + convert_val_baie_vitrée_salon + &quot;, la lumière du salon est  &quot; + convert_val_spots_salon;</em><br />
+			<em>callback({'tts': retour_vocal});</em><br />
+			<em>return;</em><br />
+			<em>break;</em></p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>modifier les id  correspondant dans la regex ( <em>data_string.match('id=&quot;chauffage_salon_mode_choix&quot;  value=&quot;([A-Za-z0-9_.]*)&quot;');)</em><br />
+			Sinon pour le reste vous  pouvez adapter les noms des variables à votre guise :)<br />
+			Et enfin pour le tts en lui-même  il faut aussi rajouter/modifier :<br />
+	<em>retour_vocal = &quot;Le chauffage du salon est sur le  mode &quot; + convert_val_chauffage_salon + &quot;, la température du salon est  de &quot; + convert_val_temperature_salon + &quot;, le volet de la baie vitrée  est &quot; + convert_val_baie_vitrée_salon + &quot;, la lumière du salon est  &quot; + convert_val_spots_salon;</em></p>
+		<p>voilà pour le moment pour  le status des pièces je n'ai pas trouver plus simple mais je suis preneur  d'idée ou aide :-)</p>
+		<p>Pour le home statu <br />
+			Simplement adapter la  fonction <br />
+	<em>//convertir les home status</em><br />
+	<em>function convert_status(data_string){</em><br />
+	<em>var home_status;</em><br />
+	<em>var valeur_home_status =  data_string.match('id=&quot;([A-Za-z_]*)&quot; value=&quot;on&quot;');</em><br />
+	<em>if(valeur_home_status[1] ==  &quot;home_status_maison&quot;){</em><br />
+	<em>home_status = &quot;Maison&quot;;</em><br />
+	<em>}</em><br />
+	<em>else if(valeur_home_status[1] ==  &quot;home_status_sortie_courte&quot;){</em><br />
+	<em>home_status = &quot;Sortie Courte&quot;;</em><br />
+	<em>}</em><br />
+	<em>else if(valeur_home_status[1] ==  &quot;home_status_sortie_longue&quot;){</em><br />
+	<em>home_status = &quot;Sortie Longue&quot;;</em><br />
+	<em>}</em><br />
+	<em>else if(valeur_home_status[1] ==  &quot;home_status_nuit&quot;){</em><br />
+	<em>home_status = &quot;Nuit&quot;;</em><br />
+	<em>}</em><br />
+	<em>else if(valeur_home_status[1] ==  &quot;home_status_vacance&quot;){</em><br />
+	<em>home_status = &quot;Vacance&quot;;</em><br />
+	<em>}</em><br />
+	<em>else if(valeur_home_status[1] ==  &quot;home_status_alarme&quot;){</em><br />
+	<em>home_status = &quot;Alarme&quot;;</em><br />
+	<em>}</em><br />
+	<em>else if(valeur_home_status[1] ==  &quot;home_status_soiree&quot;){</em><br />
+	<em>home_status = &quot;Soirée&quot;;</em><br />
+	<em>}</em><br />
+	<em>else if(valeur_home_status[1] ==  &quot;home_status_npas_deranger&quot;){</em><br />
+	<em>home_status = &quot;Ne Pas Déranger&quot;;</em><br />
+	<em>}</em><br />
+	<em>else if(valeur_home_status[1] ==  &quot;home_status_manuel&quot;){</em><br />
+	<em>home_status = &quot;Manuel&quot;;</em><br />
+	<em>}</em><br />
+	<em>home_status_general = home_status;</em><br />
+	<em>return home_status;</em><br />
+	<em>} </em><br />
+			Avec vos status<br />
+			todo&nbsp;: avoir en live  sur l'interface sarah le home status de la maison sur le portlet mais pas  encore compris comment faire :-)<br />
+			là encore idée et/ou aide  bienvenue</p>
+<h1 align="center">&nbsp;</h1>
+<p>&nbsp;</p>
     </div>
   </div>
 

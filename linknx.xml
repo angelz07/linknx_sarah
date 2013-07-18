@@ -1,0 +1,189 @@
+<grammar version="1.0" xml:lang="fr-FR" mode="voice" root="ruleMeteo" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+  <rule id="ruleMeteo" scope="public">
+    <example>jarvis allume la lumiere du salon</example>
+    <tag>out.action=new Object(); </tag>
+    
+    <item>Jarvis</item>
+    
+    <one-of>
+      <item>allume<tag>out.action.action_domo="1";out.action.type_requete_linknx="ecriture"</tag></item>
+      <item>eteint<tag>out.action.action_domo="0";out.action.type_requete_linknx="ecriture"</tag></item>
+      <item>coupe<tag>out.action.action_domo="0";out.action.type_requete_linknx="ecriture"</tag></item>
+      
+      <item>regle le chauffage<tag>out.action.type_requete_linknx="ecriture"</tag></item>
+      <item>baisse<tag>out.action.type_requete_linknx="ecriture"</tag></item>
+      <item>augmente<tag>out.action.type_requete_linknx="ecriture"</tag></item>
+      <item>monte<tag>out.action.type_requete_linknx="ecriture"</tag></item>
+      <item>passe en mode<tag>out.action.action_domo="1";out.action.type_requete_linknx="ecriture"</tag></item>
+      <item>ouvre<tag>out.action.action_domo="0";out.action.type_requete_linknx="ecriture"</tag></item>
+      <item>ferme<tag>out.action.action_domo="100";out.action.type_requete_linknx="ecriture"</tag></item>
+
+      <item>donne moi le status<tag>out.action.type_requete_linknx="lecture";out.action.objet_linknx ="status";</tag></item>
+    </one-of>
+
+    <one-of>
+
+  <!-- *************************** actuateur = Interrupteur ON/OFF ********************* -->
+  <!-- Lumière Piece  -->
+  <item>le lustre de la cuisine<tag>out.action.objet_linknx ="Lumiere_Cuisine_Lustre_Table_Cmd";out.action.type_objet ="on_off"</tag></item>
+  <item>le lustre de la salle à mangée<tag>out.action.objet_linknx ="Lumiere_Salle_a_Manger_Lustre_Table_Cmd";out.action.type_objet ="on_off"</tag></item>
+  <item>la lumère de la Buanderie<tag>out.action.objet_linknx ="Lumiere_Buanderie_Plafond_Cmd";out.action.type_objet ="on_off"</tag></item>
+  <item>la lumère de la Petite Buanderie<tag>out.action.objet_linknx ="Lumiere_Petite_Buanderie_Plafond_Cmd";out.action.type_objet ="on_off"</tag></item>
+  <item>la lumère des toilette<tag>out.action.objet_linknx ="Lumiere_WC0_Plafond_Cmd";out.action.type_objet ="on_off"</tag></item>
+  <item>la lumère du couloir<tag>out.action.objet_linknx ="Lumiere_Hall_Plafond_Cmd";out.action.type_objet ="on_off"</tag></item>
+  <item>la lumère du bureau<tag>out.action.objet_linknx ="Lumiere_Bureau_Plafond_Cmd";out.action.type_objet ="on_off"</tag></item>
+  <item>la lumère de la cave<tag>out.action.objet_linknx ="Lumiere_Cave_Plafond_Cmd";out.action.type_objet ="on_off"</tag></item>
+  <item>la lumère de la montée vers le premier<tag>out.action.objet_linknx ="Lumiere_Escalier_0-1_Plafond_Cmd";out.action.type_objet ="on_off"</tag></item>
+  <item>la lumère de la montée vers le deuxième<tag>out.action.objet_linknx ="Lumiere_Escalier_1-2_Plafond_Cmd";out.action.type_objet ="on_off"</tag></item>
+  <item>la lumère de la chambre<tag>out.action.objet_linknx ="Lumiere_Chambre_1_Spots_Plafond_Cmd";out.action.type_objet ="on_off"</tag></item>
+  <item>la lumère de la chambre 2 central<tag>out.action.objet_linknx ="Lumiere_Chambre_2_Central_Cmd";out.action.type_objet ="on_off"</tag></item>
+  <item>la lumère de la chambre 2 coté jardin<tag>out.action.objet_linknx ="Lumiere_Chambre_2_Jardin_Cmd";out.action.type_objet ="on_off"</tag></item>
+  <item>la lumère de la chambre 2 coté rue<tag>out.action.objet_linknx ="Lumiere_Chambre_2_Rue_Cmd";out.action.type_objet ="on_off"</tag></item>
+  <item>la lumère du vide technique<tag>out.action.objet_linknx ="Lumiere_Vide_Technique_au_dessus_WC_Neon_Cmd";out.action.type_objet ="on_off"</tag></item>
+  
+  <!-- Lumière Prises  -->
+  <item>la télévision du salon<tag>out.action.objet_linknx ="Prise_Salon_Multimedia_5_TV";out.action.type_objet ="on_off"</tag></item>
+  <item>la lecteur dvd du salon<tag>out.action.objet_linknx ="Prise_Salon_Multimedia_4_Home_Cinema(Lecteur_DVD)";out.action.type_objet ="on_off"</tag></item>
+  <item>la ps3<tag>out.action.objet_linknx ="Prise_Salon_Multimedia_3_PS3";out.action.type_objet ="on_off"</tag></item>
+  
+  
+  <!-- Mode Maison  -->
+  <item>à la maison<tag>out.action.objet_linknx ="home_status_maison";out.action.type_objet ="mode"</tag></item>
+  <item>sortie courte<tag>out.action.objet_linknx ="home_status_sortie_courte";out.action.type_objet ="mode"</tag></item>
+  <item>sortie longue<tag>out.action.objet_linknx ="home_status_sortie_longue";out.action.type_objet ="mode"</tag></item>
+  <item>nuit<tag>out.action.objet_linknx ="home_status_nuit";out.action.type_objet ="mode"</tag></item>
+  <item>vacance<tag>out.action.objet_linknx ="home_status_vacance";out.action.type_objet ="mode"</tag></item>
+  <item>soirée<tag>out.action.objet_linknx ="home_status_soiree";out.action.type_objet ="mode"</tag></item>
+  <item>ne pas déranger<tag>out.action.objet_linknx ="home_status_npas_deranger";out.action.type_objet ="mode"</tag></item>
+  <item>alarme<tag>out.action.objet_linknx ="home_status_alarme";out.action.type_objet ="mode"</tag></item>
+  <item>manuel<tag>out.action.objet_linknx ="home_status_manuel";out.action.type_objet ="mode"</tag></item>
+  
+  <!-- *************************** actuateur = DIMMER ********************* -->
+  <item>les lumière de la cuisine<tag>out.action.objet_linknx ="Lumiere_Cuisine_Spots_Valeur";out.action.type_objet ="dimmer"</tag></item>
+  <item>les lumière de la salle à mangée<tag>out.action.objet_linknx ="Lumiere_Salle_a_Mangee_Spots_Valeur";out.action.type_objet ="dimmer"</tag></item>
+  <item>les lumière du salon<tag>out.action.objet_linknx ="Lumiere_Salon_Spots_Valeur";out.action.type_objet ="dimmer"</tag></item> 
+  
+  <!-- *************************** actuateur = Volet ********************* -->
+   
+  <!-- Living -->
+  <item>le volet de la baie vitrée<tag>out.action.objet_linknx ="volet_baie_vitree_status";out.action.type_objet ="volet"</tag></item>
+  
+  <!-- Cuisine -->
+  <item>le volet de la porte de la cuisine<tag>out.action.objet_linknx ="volet_cuisine_porte_status";out.action.type_objet ="volet"</tag></item>
+  <item>le volet de la fenêtre jardin de la cuisine<tag>out.action.objet_linknx ="volet_cuisine_pelouse_status";out.action.type_objet ="volet"</tag></item>
+  <item>le volet de la fenêtre mouton de la cuisine<tag>out.action.objet_linknx ="volet_cuisine_mouton_status";out.action.type_objet ="volet"</tag></item>
+  
+  <!-- Buanderie -->
+  <item>le volet de la buanderie<tag>out.action.objet_linknx ="volet_buanderie_status";out.action.type_objet ="volet"</tag></item>
+  
+  <!-- Bureau -->
+  <item>le volet de la buanderie<tag>out.action.objet_linknx ="volet_bureau_status";out.action.type_objet ="volet"</tag></item>
+  
+  <!-- Chambre -->
+  <item>le volet de la chambre<tag>out.action.objet_linknx ="volet_chambre1_status";out.action.type_objet ="volet"</tag></item>
+  
+  <!-- Garage -->
+  <item>le volet du garage<tag>out.action.objet_linknx ="volet_garage_status";out.action.type_objet ="volet"</tag></item>
+  
+  <!-- Salle de bain -->
+  <item>le volet de la salle de bain cotés mouton<tag>out.action.objet_linknx ="volet_sdb_mouton_status";out.action.type_objet ="volet"</tag></item>
+  <item>le volet de la salle de bain cotés ravel<tag>out.action.objet_linknx ="volet_sdb_ravel_status";out.action.type_objet ="volet"</tag></item>
+  <item>les volets de la salle de bain<tag>out.action.objet_linknx ="volet_sdb_mouton_status";out.action.objet_linknx_2 ="volet_sdb_ravel_status";out.action.type_objet ="volet"</tag></item>
+  
+  <!-- *************************** actuateur = chauffage ********************* -->
+  
+  <!-- Cuisine -->
+  <item>de la cuisine sur confort<tag>out.action.objet_linknx ="chauffage_cuisine_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="comfort"</tag></item>
+  <item>de la cuisine sur economique<tag>out.action.objet_linknx ="chauffage_cuisine_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="standby"</tag></item>
+  <item>de la cuisine sur nuit<tag>out.action.objet_linknx ="chauffage_cuisine_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="night"</tag></item>
+  <item>de la cuisine sur hors gel<tag>out.action.objet_linknx ="chauffage_cuisine_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="frost"</tag></item>
+  
+  <!-- Buanderie -->
+  <item>de la buanderie sur confort<tag>out.action.objet_linknx ="chauffage_buanderie_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="comfort"</tag></item>
+  <item>de la buanderie sur economique<tag>out.action.objet_linknx ="chauffage_buanderie_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="standby"</tag></item>
+  <item>de la buanderie sur nuit<tag>out.action.objet_linknx ="chauffage_buanderie_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="night"</tag></item>
+  <item>de la buanderie sur hors gel<tag>out.action.objet_linknx ="chauffage_buanderie_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="frost"</tag></item>
+  
+  <!-- Bureau -->
+  <item>de la bureau sur confort<tag>out.action.objet_linknx ="chauffage_bureau_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="comfort"</tag></item>
+  <item>de la bureau sur economique<tag>out.action.objet_linknx ="chauffage_bureau_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="standby"</tag></item>
+  <item>de la bureau sur nuit<tag>out.action.objet_linknx ="chauffage_bureau_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="night"</tag></item>
+  <item>de la bureau sur hors gel<tag>out.action.objet_linknx ="chauffage_bureau_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="frost"</tag></item>
+  
+  <!-- Chambre 1 -->
+  <item>de la chambre sur confort<tag>out.action.objet_linknx ="chauffage_chambre1_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="comfort"</tag></item>
+  <item>de la chambre sur economique<tag>out.action.objet_linknx ="chauffage_chambre1_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="standby"</tag></item>
+  <item>de la chambre sur nuit<tag>out.action.objet_linknx ="chauffage_chambre1_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="night"</tag></item>
+  <item>de la chambre sur hors gel<tag>out.action.objet_linknx ="chauffage_chambre1_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="frost"</tag></item>
+  
+  <!-- Salle de bain -->
+  <item>de la salle de bain sur confort<tag>out.action.objet_linknx ="chauffage_salle_de_bain_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="comfort"</tag></item>
+  <item>de la salle de bain sur economique<tag>out.action.objet_linknx ="chauffage_salle_de_bain_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="standby"</tag></item>
+  <item>de la salle de bain sur nuit<tag>out.action.objet_linknx ="chauffage_salle_de_bain_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="night"</tag></item>
+  <item>de la salle de bain sur hors gel<tag>out.action.objet_linknx ="chauffage_salle_de_bain_mode_choix ";out.action.type_objet ="chauffage";out.action.action_domo="frost"</tag></item>
+  
+  <!-- Hall Entrée -->
+  <item>du couloir sur confort<tag>out.action.objet_linknx ="chauffage_hall_entree_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="comfort"</tag></item>
+  <item>du couloir de bain sur economique<tag>out.action.objet_linknx ="chauffage_hall_entree_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="standby"</tag></item>
+  <item>du couloir de bain sur nuit<tag>out.action.objet_linknx ="chauffage_hall_entree_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="night"</tag></item>
+  <item>du couloir de bain sur hors gel<tag>out.action.objet_linknx ="chauffage_hall_entree_mode_choix ";out.action.type_objet ="chauffage";out.action.action_domo="frost"</tag></item>
+  
+  <!-- Hall de nuit -->
+  <item>du palier sur confort<tag>out.action.objet_linknx ="chauffage_hall_nuit_choix";out.action.type_objet ="chauffage";out.action.action_domo="comfort"</tag></item>
+  <item>du palier de bain sur economique<tag>out.action.objet_linknx ="chauffage_hall_nuit_choix";out.action.type_objet ="chauffage";out.action.action_domo="standby"</tag></item>
+  <item>du palier de bain sur nuit<tag>out.action.objet_linknx ="chauffage_hall_nuit_choix";out.action.type_objet ="chauffage";out.action.action_domo="night"</tag></item>
+  <item>du palier de bain sur hors gel<tag>out.action.objet_linknx ="chauffage_hall_nuit_choix ";out.action.type_objet ="chauffage";out.action.action_domo="frost"</tag></item>
+  
+  <!-- Salle a manger -->
+  <item>de la salle à manger sur confort<tag>out.action.objet_linknx ="chauffage_salle_a_mangee_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="comfort"</tag></item>
+  <item>de la salle à manger de bain sur economique<tag>out.action.objet_linknx ="chauffage_salle_a_mangee_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="standby"</tag></item>
+  <item>de la salle à manger de bain sur nuit<tag>out.action.objet_linknx ="chauffage_salle_a_mangee_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="night"</tag></item>
+  <item>de la salle à manger de bain sur hors gel<tag>out.action.objet_linknx ="chauffage_salle_a_mangee_mode_choix ";out.action.type_objet ="chauffage";out.action.action_domo="frost"</tag></item>
+  
+  <!-- grenier -->
+  <item>du grenier sur confort<tag>out.action.objet_linknx ="chauffage_chambre2_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="comfort"</tag></item>
+  <item>du grenier sur economique<tag>out.action.objet_linknx ="chauffage_chambre2_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="standby"</tag></item>
+  <item>du grenier sur nuit<tag>out.action.objet_linknx ="chauffage_chambre2_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="night"</tag></item>
+  <item>du grenier sur hors gel<tag>out.action.objet_linknx ="chauffage_chambre2_mode_choix ";out.action.type_objet ="chauffage";out.action.action_domo="frost"</tag></item>
+  
+  
+  <!-- salon -->
+  <item>du salon sur confort<tag>out.action.objet_linknx ="chauffage_salon_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="comfort"</tag></item>
+  <item>du salon sur economique<tag>out.action.objet_linknx ="chauffage_salon_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="standby"</tag></item>
+  <item>du salon sur nuit<tag>out.action.objet_linknx ="chauffage_salon_mode_choix";out.action.type_objet ="chauffage";out.action.action_domo="night"</tag></item>
+  <item>du salon sur hors gel<tag>out.action.objet_linknx ="chauffage_salon_mode_choix ";out.action.type_objet ="chauffage";out.action.action_domo="frost"</tag></item>
+  
+  <!-- demande du status des piece -->
+  <item>de la cuisine<tag>out.action.piece ="cuisine"</tag></item>
+  <item>du salon<tag>out.action.piece ="salon"</tag></item>
+  <item>de la salle à mangée<tag>out.action.piece ="salle_a_mangee"</tag></item>
+  <item>des toilettes<tag>out.action.piece ="wc"</tag></item>
+  <item>de la buanderie<tag>out.action.piece ="banderie"</tag></item>
+  <item>du bureau<tag>out.action.piece ="bureau"</tag></item>
+  <item>du couloir<tag>out.action.piece ="couloir"</tag></item>
+  <item>de la chambre<tag>out.action.piece ="chambre"</tag></item>
+  <item>de la salle de bain<tag>out.action.piece ="salle_de_bain"</tag></item>
+  <item>du grenier<tag>out.action.piece ="grenier"</tag></item>
+  <item>des escaliers<tag>out.action.piece ="escalier"</tag></item>
+  <item>du garage<tag>out.action.piece ="garage"</tag></item>
+  <item>de la maison<tag>out.action.piece ="maison"</tag></item>
+  </one-of>
+    
+  <item repeat="0-1" weight="1.2">
+  <one-of>
+    <item>10 pourcent<tag>out.action.action_domo=10</tag></item>
+    <item>20 pourcent<tag>out.action.action_domo=20</tag></item>
+    <item>30 pourcent<tag>out.action.action_domo=30</tag></item>
+    <item>40 pourcent<tag>out.action.action_domo=40</tag></item>
+    <item>50 pourcent<tag>out.action.action_domo=50</tag></item>
+    <item>60 pourcent<tag>out.action.action_domo=60</tag></item>
+    <item>70 pourcent<tag>out.action.action_domo=70</tag></item>
+    <item>80 pourcent<tag>out.action.action_domo=80</tag></item>
+    <item>90 pourcent<tag>out.action.action_domo=90</tag></item>
+    <item>100 pourcent<tag>out.action.action_domo=100</tag></item>
+    </one-of>
+  </item>
+    
+    <tag>out.action._attributes.uri="http://127.0.0.1:8080/sarah/linknx";</tag>
+  </rule> 
+</grammar>
